@@ -6,7 +6,12 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.0beta7",
-    "jade": "*"
+    "express": "3.0.x",
+    "mongoose": "*",
+    "bcrypt": "*",
+    "request": "*",
+    "moment": "*",
+    "jade": "*",
+    "Faker": "0.5.x"
   }
 }
