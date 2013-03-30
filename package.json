@@ -12,6 +12,7 @@
     "request": "*",
     "moment": "*",
     "jade": "*",
+    "stylus": "*",
     "Faker": "0.5.x"
   }
 }
