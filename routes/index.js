@@ -13,7 +13,20 @@ var connection = mysql.createConnection({
 connection.connect();
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Lorem Wisdom' });
+};
+
+exports.docs = function(req, res){
+  var end_points = [
+    {
+      verb: 'GET',
+      route: '/quotes',
+      description: 'This endpoint retuns a random quote',
+      example_response: {},
+      optional_parameters: {}
+    }
+  ];
+  res.render('docs', { title: 'Lorem Wisdom | API Docs', docs: end_points });
 };
 
 function makeQuery(table, req) {
@@ -59,7 +72,7 @@ function makeQuery(table, req) {
 
 exports.facts = function(req, res) {
   var sql_obj = makeQuery('facts', req);
-  
+
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
@@ -71,7 +84,7 @@ exports.facts = function(req, res) {
 
 exports.proverbs = function(req, res) {
   var sql_obj = makeQuery('proverbs', req);
-  
+
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
@@ -83,7 +96,7 @@ exports.proverbs = function(req, res) {
 
 exports.quotes = function(req, res) {
   var sql_obj = makeQuery('quotes', req);
-  
+
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
