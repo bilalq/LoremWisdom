@@ -5,12 +5,21 @@ $title-font = 'Clicker Script', cursive
 $subtitle-font = 'Tangerine', cursive
 
 body
+  background-color $sky-blue
   margin 0
   padding-bottom 55px
 
 a {
   text-decoration: none;
 }
+
+.logo
+  font-family $title-font
+  font-weight 400
+  font-size 6em
+  color $white-smoke
+  text-shadow $blue-shadow
+
 
 .clearfix:before, .clearfix:after {
   display: table;
@@ -49,16 +58,7 @@ div.landing
   .nav
     margin auto
     padding-top 150px
-    background-color $sky-blue
     min-height 640px
-    .logo
-      font-family $title-font
-      font-weight 400
-      font-size 6em
-      color $white-smoke
-      text-shadow $blue-shadow
-
-
   .category
     font-family $subtitle-font
     font-size 44px
@@ -70,11 +70,12 @@ div.landing
     width 60%
     border 4px solid rgba(39,118, 151, 0.1)
     border-radius 4px
+    background-color #fefefe
 
     p
       margin auto
+      font-size 1.2em
       text-align center
-      line-height 1.3em
       max-width: 400px
 
 

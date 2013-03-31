@@ -37,7 +37,8 @@ var constrain_limit = function(req, res, next) {
   next();
 };
 
-app.get('/', constrain_limit, routes.index);
+app.get('/', routes.index);
+app.get('/docs', routes.docs);
 app.get('/facts', constrain_limit, routes.facts);
 app.get('/proverbs', constrain_limit, routes.proverbs);
 app.get('/quotes', constrain_limit, routes.quotes);
