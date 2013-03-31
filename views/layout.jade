@@ -2,7 +2,11 @@ doctype 5
 html
   head
     title= title
-    link(href='http://fonts.googleapis.com/css?family=Clicker+Script&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Tangerine|Clicker+Script', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/stylesheets/app.css')
+    block styles
+
   body
     block content
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+    script(src='/javascripts/client.js')
