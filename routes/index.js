@@ -50,7 +50,7 @@ exports.quotes = function(req, res) {
     } else {
       res.send(200, results);
     }
-  };
+  });
 };
 
 exports.surprise = function(req, res) {
