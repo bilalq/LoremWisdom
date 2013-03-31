@@ -12,15 +12,55 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-
 exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
 
-exports.facts = function(req, res) {
-  var limit = req.param('limit');
+function makeQuery(table, req) {
+  var sql_input = [];
 
-  connection.query('SELECT * FROM facts ORDER BY RAND() LIMIT ?', [limit], function(err, results) {
+  //Base query
+  var sql_statement = 'SELECT * FROM ' + table;
+
+  //tag
+  if(req.param('tag')) {
+    sql_statement += ' WHERE tag = ?';
+    sql_input.push(req.param('tag'));
+  }
+
+  //id
+  if(req.param('id')) {
+    if(req.param('tag')) {
+      sql_statement += ' and id = ?';
+    } else {
+      sql_statement += ' WHERE id = ?';
+    }
+    sql_input.push(req.param('id'));
+  }
+
+  //random
+  sql_statement += ' ORDER BY RAND()';
+
+  //limit
+  var limit = parseInt(req.param('limit'), 10) || 1;
+  if(limit < 0) {
+    limit = 0;
+  } else if(limit > 50) {
+    limit = 50;
+  }
+  sql_statement += ' LIMIT ?';
+  sql_input.push(limit);
+
+  console.log(sql_statement);
+  console.log(sql_input);
+
+  return {statement: sql_statement, input: sql_input};
+}
+
+exports.facts = function(req, res) {
+  var sql_obj = makeQuery('facts', req);
+  
+  connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
     } else {
@@ -30,9 +70,9 @@ exports.facts = function(req, res) {
 };
 
 exports.proverbs = function(req, res) {
-  var limit = req.param('limit');
-
-  connection.query('SELECT * FROM proverbs ORDER BY RAND() LIMIT ?', [limit], function(err, results) {
+  var sql_obj = makeQuery('proverbs', req);
+  
+  connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
     } else {
@@ -42,9 +82,9 @@ exports.proverbs = function(req, res) {
 };
 
 exports.quotes = function(req, res) {
-  var limit = req.param('limit');
-
-  connection.query('SELECT * FROM quotes ORDER BY RAND() LIMIT ?', [limit], function(err, results) {
+  var sql_obj = makeQuery('quotes', req);
+  
+  connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
       res.send(500, err);
     } else {
