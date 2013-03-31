@@ -18,6 +18,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(__dirname + '/public'));
 });
 
@@ -40,7 +41,7 @@ app.get('/', constrain_limit, routes.index);
 app.get('/facts', constrain_limit, routes.facts);
 app.get('/proverbs', constrain_limit, routes.proverbs);
 app.get('/quotes', constrain_limit, routes.quotes);
-app.get('/suprise', constrain_limit, routes.suprise);
+//app.get('/suprise', constrain_limit, routes.suprise);
 
 
 http.createServer(app).listen(app.get('port'), function(){
