@@ -1,7 +1,7 @@
 module.exports = {
   db : {
     user: 'user',
-    password: 'password'
+    password: 'password',
     database: 'database'
   }
 };
