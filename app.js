@@ -25,14 +25,23 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+var constrain_limit = function(req, res, next) {
+  var limit = parseInt(req.param('limit'), 10) || 1;
+  if(limit < 0) {
+    limit = 0;
+  } else if(limit > 50) {
+    limit = 50;
+  }
+  req.query.limit = limit;
+  next();
+};
 
-app.get('/facts', routes.facts);
-app.get('/proverbs', routes.proverbs);
-app.get('/quotes', routes.quotes);
-//app.get('/suprise', routes.suprise);
+app.get('/', constrain_limit, routes.index);
+app.get('/facts', constrain_limit, routes.facts);
+app.get('/proverbs', constrain_limit, routes.proverbs);
+app.get('/quotes', constrain_limit, routes.quotes);
+app.get('/suprise', constrain_limit, routes.suprise);
 
-app.get('/weather/:state/:city', routes.weather);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
