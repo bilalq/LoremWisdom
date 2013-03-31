@@ -15,13 +15,37 @@ exports.index = function(req, res){
   res.render('index', { title: 'Express' });
 };
 
-exports.proverbs = function(req, res) {
-  var limit = parseInt(req.param(limit), 10);
-  if(limit > 0) {
+exports.facts = function(req, res) {
+  var limit = parseInt(req.param('limit'), 10) || 1;
+  if(limit < 0) {
     limit = 1;
+  } 
+  else if(limit > 50) {
+    limit = 50;
   }
 
-  connection.query('SELECT * FROM proverbs LIMIT ?', [limit], function(err, results) {
+  console.log(limit);
+
+  connection.query('SELECT * FROM facts ORDER BY RAND() LIMIT ?', [limit], function(err, results) {
+    if(err) {
+      res.send(500, err);
+    } else {
+      res.send(200, results);
+    }
+  });
+
+};
+
+exports.proverbs = function(req, res) {
+  var limit = parseInt(req.param('limit'), 10) || 1;
+  if(limit < 0) {
+    limit = 1;
+  } 
+  else if(limit > 50) {
+    limit = 50;
+  }
+
+  connection.query('SELECT * FROM proverbs ORDER BY RAND() LIMIT ?', [limit], function(err, results) {
     if(err) {
       res.send(500, err);
     } else {
@@ -39,9 +63,6 @@ exports.surprise = function(req, res) {
 
 };
 
-exports.facts = function(req, res) {
-
-};
 /**
  * Wrapper for Wunderground Weather API
  **/

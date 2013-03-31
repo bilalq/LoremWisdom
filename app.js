@@ -30,7 +30,7 @@ app.get('/', routes.index);
 app.get('/facts', routes.facts);
 app.get('/proverbs', routes.proverbs);
 app.get('/quotes', routes.quotes);
-app.get('/suprise', routes.suprise);
+//app.get('/suprise', routes.suprise);
 
 app.get('/weather/:state/:city', routes.weather);
 
