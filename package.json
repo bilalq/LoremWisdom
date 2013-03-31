@@ -13,6 +13,8 @@
     "moment": "*",
     "jade": "*",
     "stylus": "*",
-    "Faker": "0.5.x"
+    "Faker": "0.5.x",
+    "request": "*",
+    "mysql": "*"
   }
 }
