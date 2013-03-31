@@ -24,7 +24,7 @@ exports.docs = function(req, res){
       verb: 'GET',
       route: '/quotes',
       description: 'This endpoint returns a random quote',
-      example_response: { 
+      example_response: {
         text: '[\n{\n"id": 3423,\n"quote": "Even when I begin with a situation that\'s basically funny or sad, I like to keep poking around in it. I like to get into the middle of a relationship, to explore the subtle places.",\n"author": "Paul Mazursky",\n"tag": "sad"\n},\n{\n"id": 5070,\n"quote": "If you don\'t physically age gracefully, it\'s a bit sad. I think Steven Tyler can get away anything, because he still looks like he did in \'73. Especially from row Z backwards in an arena. As long as the Stones keep their hair and don\'t get fat they\'ll get away with the wrinkles.",\n"author": "Joe Elliott",\n"tag": "sad"\n}\n]'
       },
       optional_parameters: [
@@ -50,7 +50,7 @@ exports.docs = function(req, res){
       verb: 'GET',
       route: '/paragraph',
       description: 'This endpoint creates a paragraph with random facts',
-      example_response: { text: 
+      example_response: { text:
         '{ \n"paragraph": "In The average lifetime, a person will walk The equivalent of 5 times around The equator. The original name of Nashville, Tennessee, was Big Salt Lick. Apples, peaches and raspberries are all members or the rose family. The pound sign, or #, is called an \'octothorp\'. Cold water weighs less than hot water. \n\n Mongolians invented lemonade around 1299 A.D. To take lumps out of a bag of sugar, place it in the refrigerator for 24 hours. Bamboo (the world\'s tallest grass) can grow up to 90cm in a day. The first sport to be filmed was boxing in 1894. You transfer more germs shaking hands than kissing. \n\n Broccoli is the only vegetable that is also a flower. When the moon is directly over you, you weigh less. The human brain takes up 2% of human body weight but uses 20% of its energy. In the U.S. a pig has to weigh more than 180 lbs to be called a hog The only bird who can see the color blue is the owl. \n\n A twit is the technical term for a pregnant goldfish. Americans on average eat 18 acres of pizza a day. Animals that lay eggs don\'t have belly buttons. In the U.S., there are about 15,000 vacuum cleaner-related accidents. Snoopy is the most common dog name beginning with the letter S. \n\n Theodore Roosevelt was the only president blind in one eye. The National Park Service manages over 350 parks on 80 million acres of public land. Pilates stretches your muscles, improving your posture and helping you appear taller. Men get hiccups more than women. Licking a stamp burns 10 calories. \n\n ",\n "number_paragraphs": 5\n}'
       },
       optional_parameters: [
@@ -159,7 +159,7 @@ exports.paragraph = function(req, res) {
       tmp_req.params.tag = req.param('tag');
       var sql_obj = makeQuery('facts', tmp_req);
       connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
-        if(err) { 
+        if(err) {
           console.log(err);
         } else {
           facts = facts.concat(results);

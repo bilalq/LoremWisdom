@@ -14,17 +14,15 @@ block content
     div.docs
       each doc in docs
         div.doc
-          h3= doc.verb
-            small doc.route
-          p= doc.description
-          p Example Response:
-          code.language-javascript= doc.example_response.text
-          p Optional Parameters
-          ul.parameters
-            each param in doc.optional_parameters
-              li= param.name + ": " + param.desc
-
-
-
-
-
+          h3.verb= doc.verb + " "
+            small= doc.route
+          p.desc= doc.description
+          p.example Example Response:
+          div.response
+            code.language-javascript
+              pre= doc.example_response.text
+          div.options
+            p Optional Parameters
+            ul.parameters
+              each param in doc.optional_parameters
+                li= param.name + ": " + param.desc
