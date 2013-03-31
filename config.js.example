@@ -1,0 +1,9 @@
+module.exports = {
+  db : {
+    user: 'user',
+    password: 'password'
+    database: 'database'
+  }
+};
+
+// vim: ft=javascript
