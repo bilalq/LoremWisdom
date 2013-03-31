@@ -1,7 +1,23 @@
 extends layout
 
+block scripts
+  script(src='/javascripts/client.js')
+
 block content
   div.landing
-    h1.logo Lorem Wisdom
-    h1= title
-    p Welcome to #{title}
+    div.nav
+      a(href='/')
+        h1.logo Lorem Wisdom
+      ul.clearfix
+        li.demo.button Demo
+        a(href='/docs')
+          li.button API
+    div.dynamic
+      div.box
+        h2.category Facts
+        div.item.facts
+          p.fact
+      div.box
+        h2.category Quotes
+        div.item.quotes
+          p.quote

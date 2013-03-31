@@ -1,0 +1,18 @@
+extends layout
+
+block styles
+ link(rel='stylesheet', href='/stylesheets/docs.css')
+ link(rel='stylesheet', href='/stylesheets/prism.css')
+
+block scripts
+  script(src='/javascripts/prism.js')
+
+block content
+  div.wrapper
+    div.heading
+      a(href='/')
+        h1.logo Lorem Wisdom
+      h2.title API Documentation
+    div.docs
+      code.language-javascript console.log("Testing");
+

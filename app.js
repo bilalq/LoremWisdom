@@ -38,6 +38,8 @@ var constrain_limit = function(req, res, next) {
 };
 
 app.get('/', routes.index);
+
+app.get('/docs', routes.docs);
 app.get('/facts', routes.facts);
 app.get('/proverbs', routes.proverbs);
 app.get('/quotes', routes.quotes);

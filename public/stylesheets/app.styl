@@ -1,2 +1,84 @@
+$sky-blue = #237395
+$white-smoke = #fefefe
+$blue-shadow = 1px 1px #393988
+$title-font = 'Clicker Script', cursive
+$subtitle-font = 'Tangerine', cursive
+
+body
+  background-color $sky-blue
+  margin 0
+  padding-bottom 55px
+
+a {
+  text-decoration: none;
+}
+
 .logo
-  font-family 'Clicker Script', cursive
+  font-family $title-font
+  font-weight 400
+  font-size 6em
+  color $white-smoke
+  text-shadow $blue-shadow
+
+
+.clearfix:before, .clearfix:after {
+  display: table;
+  cursiveontent: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.button
+  margin auto
+  background-color #ff4c47
+  border-radius 3px
+  box-shadow 0 2px 0 #db443d
+  -moz-box-shadow 0 2px 0 #db443d
+  -webkit-box-shadow 0 2px 0 #db443d
+  color #fff
+  display block
+  height 38px
+  line-height 38px
+  text-align center
+  width 190px
+  text-transform uppercase
+  padding 20px
+  margin-bottom 20px
+  font-weight 700
+  display table
+  &:hover
+    background-color #db443d
+    cursor pointer
+
+div.landing
+  margin 0
+  text-align center
+  font-family Helvetica, Arial, sans-serif
+
+  .nav
+    margin auto
+    padding-top 150px
+    min-height 640px
+  .category
+    font-family $subtitle-font
+    font-size 44px
+
+  .box
+    min-height 320px
+    margin auto
+    margin-top 20px
+    width 60%
+    border 4px solid rgba(39,118, 151, 0.1)
+    border-radius 4px
+    background-color #fefefe
+
+    p
+      margin auto
+      font-size 1.2em
+      text-align center
+      max-width: 400px
+
+
+  .category
+    font-weight 200
+
