@@ -12,6 +12,35 @@ a {
   text-decoration: none;
 }
 
+.clearfix:before, .clearfix:after {
+  display: table;
+  cursiveontent: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.button
+  margin auto
+  background-color #ff4c47
+  border-radius 3px
+  box-shadow 0 2px 0 #db443d
+  -moz-box-shadow 0 2px 0 #db443d
+  -webkit-box-shadow 0 2px 0 #db443d
+  color #fff
+  display block
+  height 38px
+  line-height 38px
+  text-align center
+  width 190px
+  text-transform uppercase
+  padding 20px
+  margin-bottom 20px
+  font-weight 700
+  display table
+  &:hover
+    background-color #db443d
+    cursor pointer
+
 div.landing
   margin 0
   text-align center
