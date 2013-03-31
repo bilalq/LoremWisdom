@@ -1,5 +1,7 @@
 var config = require('../config');
 
+var async = require('async');
+
 var request = require('request');
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -51,9 +53,6 @@ function makeQuery(table, req) {
   sql_statement += ' LIMIT ?';
   sql_input.push(limit);
 
-  console.log(sql_statement);
-  console.log(sql_input);
-
   return {statement: sql_statement, input: sql_input};
 }
 
@@ -91,6 +90,41 @@ exports.quotes = function(req, res) {
       res.send(200, results);
     }
   });
+};
+
+exports.paragraph = function(req, res) {
+  var num_para = req.param('paragraphs') || 5;
+
+  var facts = [];
+
+  var i = 0;
+  async.whilst(function() { return i < num_para; },
+    function(callback) {
+      i++;
+      var tmp_req = req;
+      tmp_req.params.limit = 5;
+      tmp_req.params.tag = req.param('tag');
+      var sql_obj = makeQuery('facts', tmp_req);
+      connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
+        if(err) { 
+          console.log(err);
+        } else {
+          facts = facts.concat(results);
+          facts.push({text: '\n\n'});
+        }
+        callback(err, results);
+      })
+    },
+    function(err, stuff) {
+      var paragraphs = "";
+
+      for(var i = 0; i < facts.length; i++) {
+        var text = facts[i].text;
+        paragraphs += text + ' ';
+      }
+      res.send(200, {paragraph: paragraphs, number_paragraphs: num_para});
+    }
+  );
 };
 
 exports.surprise = function(req, res) {

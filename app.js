@@ -37,11 +37,12 @@ var constrain_limit = function(req, res, next) {
   next();
 };
 
-app.get('/', constrain_limit, routes.index);
-app.get('/facts', constrain_limit, routes.facts);
-app.get('/proverbs', constrain_limit, routes.proverbs);
-app.get('/quotes', constrain_limit, routes.quotes);
-//app.get('/suprise', constrain_limit, routes.suprise);
+app.get('/', routes.index);
+app.get('/facts', routes.facts);
+app.get('/proverbs', routes.proverbs);
+app.get('/quotes', routes.quotes);
+app.get('/paragraph', routes.paragraph);
+//app.get('/suprise', routes.suprise);
 
 
 http.createServer(app).listen(app.get('port'), function(){
