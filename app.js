@@ -44,6 +44,7 @@ app.get('/facts', routes.facts);
 app.get('/proverbs', routes.proverbs);
 app.get('/quotes', routes.quotes);
 app.get('/paragraph', routes.paragraph);
+app.get('/title', routes.title);
 //app.get('/suprise', routes.suprise);
 
 

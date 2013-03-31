@@ -57,6 +57,16 @@ exports.docs = function(req, res){
         {name: 'paragraphs', desc: 'Number of paragraphs to return'}
       ]
     },
+    {
+      verb: 'GET',
+      route: '/title',
+      description: 'This endpoint returns a random title',
+      example_response: {
+        text: '{\n"text": "connectionless fire-bell"\n}'
+      },
+      optional_parameters: [
+      ]
+    },
   ];
   res.render('docs', { title: 'Lorem Wisdom | API Docs', docs: end_points });
 };
@@ -174,3 +184,31 @@ exports.surprise = function(req, res) {
 
 };
 
+exports.title = function(req, res) {
+  request('http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=3&maxLength=-1&sortBy=count&sortOrder=desc&limit=1&api_key=e823d346d3ee00988112a588266071dcb398b2460e6b7cd33', function(err, response, body) {
+
+    if(!err && response.statusCode === 200) {
+      var obj = {};
+      body = JSON.parse(body);
+      obj.adjective = body[0].word;
+
+      console.log(body);
+
+      request('http://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&includePartOfSpeech=noun&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=3&maxLength=-1&sortBy=count&sortOrder=desc&limit=1&api_key=e823d346d3ee00988112a588266071dcb398b2460e6b7cd33', function(err, response, body) {
+        if(!err && response.statusCode === 200) {
+          body = JSON.parse(body);
+          obj.noun = body[0].word;
+
+          console.log(body);
+
+          res.send(200, {text: obj.adjective + ' ' + obj.noun});
+        } else {
+          res.send(500, err);
+        }
+      });
+    } else {
+      res.send(500, err);
+    }
+  });
+
+};
