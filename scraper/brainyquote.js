@@ -1,5 +1,6 @@
 var jsdom = require('jsdom');
 var request = require('request');
+var async = require('async');
 
 var config = require('../config');
 
@@ -13,13 +14,12 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-for(var i = 1; i <= 29; i++) {
-  var page = i;
+var tags = ['technology', 'computers', 'cool', 'dating', 'diet', 'experience', 'failure', 'food', 'happiness', 'men', 'women', 'science', 'sad', 'patience'];
 
-  request({uri: 'http://brainyquote.com/quotes/topics/topic_wisdom' + page  + '.html?SPvm=1&vm=l'}, function(err, response, body){
-    var self = this;
+for(var tag_i = 1; tag_i < tags.length -1; tag_i++) {
+  var tag = tags[tag_i];
 
-    self.items = [];
+  request({uri: 'http://brainyquote.com/quotes/topics/topic_' + tag + '.html?SPvm=1&vm=l'}, function(err, response, body){
     if(err && response.statusCode !== 200){
       console.log('Request error.');
     }
@@ -29,22 +29,38 @@ for(var i = 1; i <= 29; i++) {
       scripts: ['http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js']
     }, function(err, window){
       var $ = window.jQuery;
+      var last_page = $('.pagination ul li:nth-last-child(2) a').first().text();
 
-      $('.boxy').each(function(key, value) { 
-        var quote = $(".bqQuoteLink a", value).text();
-        var author = $(".bodybold a", value).text();
+      for(var i = 1; i <= last_page; i++) {
+        var page = i;
 
-        var query = connection.query('INSERT into quotes (quote, author) VALUES (?, ?)', [quote, author], function(err, result) {
-          
-          if(err) {
-            console.log('--MYSQL ERROR--' + err);
+        request({uri: 'http://brainyquote.com/quotes/topics/topic_' + tag + page  + '.html?SPvm=1&vm=l'}, function(err, response, body){
+          if(err && response.statusCode !== 200){
+            console.log('Request error.');
           }
+
+          jsdom.env({
+            html: body,
+            scripts: ['http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js']
+          }, function(err, window){
+            var $ = window.jQuery;
+
+            $('.boxy').each(function(key, value) { 
+              var quote = $(".bqQuoteLink a", value).text();
+              var author = $(".bodybold a", value).text();
+
+              var query = connection.query('INSERT into quotes (quote, author, tag) VALUES (?, ?, ?)', [quote, author, tag], function(err, result) {
+
+                if(err) {
+                  console.log('--MYSQL ERROR--' + err);
+                }
+              });
+
+              console.log("Quote: " + quote + " --Author:" + author);
+            });
+          });
         });
-
-        console.log(query.sql);
-
-        console.log("Quote: " + quote + " --Author:" + author);
-      });
+      }
     });
   });
 }
