@@ -2,10 +2,8 @@ extends layout
 
 block styles
  link(rel='stylesheet', href='/stylesheets/docs.css')
- link(rel='stylesheet', href='/stylesheets/prism.css')
 
 block scripts
-  script(src='/javascripts/prism.js')
 
 block content
   div.wrapper
@@ -14,5 +12,19 @@ block content
         h1.logo Lorem Wisdom
       h2.title API Documentation
     div.docs
-      code.language-javascript console.log("Testing");
+      each doc in docs
+        div.doc
+          h3= doc.verb
+            small doc.route
+          p= doc.description
+          p Example Response:
+          code.language-javascript= doc.example_response.text
+          p Optional Parameters
+          ul.parameters
+            each param in doc.optional_parameters
+              li= param.name + ": " + param.desc
+
+
+
+
 
