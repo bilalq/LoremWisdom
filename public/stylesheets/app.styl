@@ -9,9 +9,8 @@ body
   margin 0
   padding-bottom 55px
 
-a {
+a
   text-decoration: none;
-}
 
 .logo
   font-family $title-font
@@ -21,13 +20,17 @@ a {
   text-shadow $blue-shadow
 
 
-.clearfix:before, .clearfix:after {
-  display: table;
-  cursiveontent: "";
-}
-.clearfix:after {
-  clear: both;
-}
+.clearfix:before
+.clearfix:after
+  display table
+  content " "
+
+.clearfix:after
+  clear both
+
+.clearfix 
+  padding-left 0
+
 .button
   margin auto
   background-color #ff4c47
@@ -60,9 +63,11 @@ div.landing
     margin auto
     padding-top 150px
     min-height 640px
+
   .category
     font-family $subtitle-font
     font-size 44px
+    font-weight 200
 
   .box
     min-height 320px
@@ -78,8 +83,3 @@ div.landing
       font-size 1.2em
       text-align left
       max-width: 410px
-
-
-  .category
-    font-weight 200
-
