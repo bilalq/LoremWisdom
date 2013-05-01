@@ -118,9 +118,9 @@ exports.facts = function(req, res) {
 
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
-      res.send(500, err);
+      res.json(500, err);
     } else {
-      res.send(200, results);
+      res.json(200, results);
     }
   });
 };
@@ -130,9 +130,9 @@ exports.proverbs = function(req, res) {
 
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
-      res.send(500, err);
+      res.json(500, err);
     } else {
-      res.send(200, results);
+      res.json(200, results);
     }
   });
 };
@@ -142,9 +142,9 @@ exports.quotes = function(req, res) {
 
   connection.query(sql_obj.statement, sql_obj.input, function(err, results) {
     if(err) {
-      res.send(500, err);
+      res.json(500, err);
     } else {
-      res.send(200, results);
+      res.json(200, results);
     }
   });
 };
@@ -209,13 +209,13 @@ exports.title = function(req, res) {
 
           var title = toTitleCase(obj.adjective + ' ' + obj.noun);
 
-          res.send(200, {text: title});
+          res.json(200, {text: title});
         } else {
-          res.send(500, err);
+          res.json(500, err);
         }
       });
     } else {
-      res.send(500, err);
+      res.json(500, err);
     }
   });
 
