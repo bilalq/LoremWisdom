@@ -174,12 +174,14 @@ exports.paragraph = function(req, res) {
     },
     function(err, stuff) {
       var paragraphs = "";
+      var para_arr = [];
 
       for(var i = 0; i < facts.length; i++) {
         var text = facts[i].text;
         paragraphs += text + ' ';
+        para_arr.push(text);
       }
-      res.send(200, {paragraph: paragraphs, number_paragraphs: num_para});
+      res.send(200, {paragraph: paragraphs, paragraph_array: para_arr, number_paragraphs: num_para});
     }
   );
 };
