@@ -150,12 +150,12 @@ exports.quotes = function(req, res) {
 };
 
 exports.paragraph = function(req, res) {
-  var num_para = req.param('paragraphs') || 5;
+  var paragraph_count = req.param('paragraphs') || 5;
 
   var facts = [];
 
   var i = 0;
-  async.whilst(function() { return i < num_para; },
+  async.whilst(function() { return i < paragraph_count; },
     function(callback) {
       i++;
       var tmp_req = req;
@@ -181,7 +181,7 @@ exports.paragraph = function(req, res) {
         paragraphs += text + ' ';
         para_arr.push(text);
       }
-      res.send(200, {paragraph: paragraphs, paragraph_array: para_arr, number_paragraphs: num_para});
+      res.json(200, {paragraph: paragraphs, paragraph_array: para_arr, number_paragraphs: paragraph_count});
     }
   );
 };
