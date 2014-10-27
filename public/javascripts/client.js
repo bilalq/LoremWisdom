@@ -17,6 +17,7 @@ $(document).ready(function() {
   // Handle live loading demos
   var fact = $('.fact');
   var quote = $('.quote');
+  var paragraph = $('.paragraph');
 
   request('facts', {limit: 15}, function(response) {
     cycle(function(item) {
@@ -32,6 +33,10 @@ $(document).ready(function() {
         $(this).html(item.quote + "<br><br> -" + item.author);
       }).fadeToggle();
     }, response, 5000);
+  });
+
+  request('paragraph', function(response) {
+    paragraph.html(response.paragraph);
   });
 
   function cycle(manip, data, time, i) {
