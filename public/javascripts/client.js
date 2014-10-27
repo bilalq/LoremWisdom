@@ -50,7 +50,7 @@ $(document).ready(function() {
 
   // Make buttons work
   function scrollToBottom() {
-    $('html, body').animate({scrollTop: $(document).height()}, 1000);
+    $('html, body').animate({scrollTop: $(".dynamic").offset().top}, 1000);
   }
 
   $('.demo.button').on('click', scrollToBottom);
