@@ -1,6 +1,12 @@
-var request = function (method, callback) {
+var request = function (method, options, callback) {
+  if (typeof(options) == "function") {
+      callback = options;
+      options = {};
+  }
+
   $.ajax({
     type: 'GET',
+    data: options,
     url: '/' + method,
     success: callback
   });
@@ -11,22 +17,31 @@ $(document).ready(function() {
   // Handle live loading demos
   var fact = $('.fact');
   var quote = $('.quote');
-  function updateBoxes() {
-    request('facts', function(response) {
-      var response = response[0];
+
+  request('facts', {limit: 15}, function(response) {
+    cycle(function(item) {
       fact.fadeToggle(function() {
-        $(this).text(response.text);
+        $(this).text(item.text);
       }).fadeToggle();
-    });
-    request('quotes', function(response) {
-      var response = response[0];
+    }, response, 5000);
+  });
+
+  request('quotes', {limit: 15}, function(response) {
+    cycle(function(item) {
       quote.fadeToggle(function() {
-        $(this).html(response.quote + "<br><br> -" + response.author);
+        $(this).html(item.quote + "<br><br> -" + item.author);
       }).fadeToggle();
-    });
+    }, response, 5000);
+  });
+
+  function cycle(manip, data, time, i) {
+    if (i == null) {
+      i = 0;
+    }
+    manip(data[i]);
+    i = ++i % data.length;
+    setTimeout(function() { cycle(manip, data, time, i);}, time);
   }
-  updateBoxes();
-  setInterval(updateBoxes, 5000);
 
   // Make buttons work
   function scrollToBottom() {

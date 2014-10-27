@@ -15,6 +15,7 @@
     "stylus": "*",
     "Faker": "0.5.x",
     "request": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "async": "*"
   }
 }
